@@ -7,15 +7,32 @@ import { useRouter } from 'vue-router'
 let loginForm = ref({username:'', password:''})
 let router = useRouter()
 
+// 演示模式：GitHub Pages 无后端，用本地验证
+const isDemo = window.location.hostname !== 'localhost'
+
 //登录
 const login = async () => {
-  const result = await loginApi(loginForm.value)
-  if (result.code) {// 登录成功
-    ElMessage.success('登录成功')
-    localStorage.setItem('loginUser', JSON.stringify(result.data))
-    router.push('/')// 跳转
-  }else {
-    ElMessage.error(result.msg)
+  if (isDemo && loginForm.value.username === 'admin' && loginForm.value.password === 'admin123') {
+    ElMessage.success('登录成功（演示模式）')
+    localStorage.setItem('loginUser', JSON.stringify({ token: 'demo', name: '管理员' }))
+    router.push('/')
+    return
+  }
+  if (isDemo) {
+    ElMessage.error('演示模式：用户名 admin，密码 admin123')
+    return
+  }
+  try {
+    const result = await loginApi(loginForm.value)
+    if (result.code) {
+      ElMessage.success('登录成功')
+      localStorage.setItem('loginUser', JSON.stringify(result.data))
+      router.push('/')
+    } else {
+      ElMessage.error(result.msg)
+    }
+  } catch {
+    ElMessage.error('无法连接后端服务')
   }
 }
 
