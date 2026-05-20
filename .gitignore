@@ -36,10 +36,15 @@ coverage
 .env
 .env.*
 
+# Uploaded files (local only)
+uploads/
+
 # Database
 *.db
 *.db-shm
 *.db-wal
+# 保留演示数据库（含虚构的示例数据）
+!tlias-backend-python/data/tlias.db
 
 # Claude local settings
 .claude/
