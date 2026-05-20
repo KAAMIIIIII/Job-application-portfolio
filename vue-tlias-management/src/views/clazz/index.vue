@@ -23,7 +23,7 @@ const toDateString = (date) => {
 //学科列表数据
 const subjects = ref([{ name: 'Java', value: 1 },{ name: '前端', value: 2 },{ name: '大数据', value: 3 },{ name: 'Python', value: 4 },{ name: 'Go', value: 5 },{ name: '嵌入式', value: 6 }])
 //搜索表单对象
-let searchClazz = ref({begin: null, end: null, name: ''})
+let searchClazz = ref({begin: null, end: null, name: '', masterId: ''})
 //列表展示数据
 let tableData = ref([])
 
@@ -62,6 +62,7 @@ const queryPage = async () => {
       toDateString(searchClazz.value.begin),
       toDateString(searchClazz.value.end),
       searchClazz.value.name,
+      searchClazz.value.masterId,
       pagination.value.currentPage,
       pagination.value.pageSize
   );
@@ -74,7 +75,7 @@ const queryPage = async () => {
 
 //清空搜索栏
 const clear = () => {
-  searchClazz.value = {begin: null, end: null, name: ''}
+  searchClazz.value = {begin: null, end: null, name: '', masterId: ''}
   queryPage()
 }
 
@@ -228,6 +229,12 @@ const delById = async (id) => {
           placeholder="选择结课时间"
           format="YYYY-MM-DD"
         />
+      </el-form-item>
+
+      <el-form-item label="班主任">
+        <el-select v-model="searchClazz.masterId" placeholder="请选择班主任" clearable>
+          <el-option v-for="emp in emps" :label="emp.name" :value="emp.id" />
+        </el-select>
       </el-form-item>
 
       <el-form-item>

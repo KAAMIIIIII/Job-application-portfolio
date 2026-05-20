@@ -16,7 +16,7 @@ npm run lint         # ESLint 检查 .vue/.js/.jsx/.cjs/.mjs，自动修复
 
 ## 项目架构
 
-Vue 3 + Vite 单页应用，使用 Element Plus 组件库、Pinia 状态管理、Vue Router 路由。后端为独立的 Java 服务，通过 Vite 代理转发请求。
+Vue 3 + Vite 单页应用，使用 Element Plus 组件库、Pinia 状态管理、Vue Router 路由。后端为独立的 Node.js (Express) 或 Python (Flask) 服务，通过 Vite 代理转发请求。详见根目录 CLAUDE.md。
 
 ### API 层 (`src/utils/request.js`)
 
@@ -28,7 +28,7 @@ Axios 实例，`baseURL: '/api'`，包含两个拦截器：
 
 ### 路由 (`src/router/index.js`)
 
-History 模式路由，包含两个顶级路由：
+Hash 模式路由（`createWebHashHistory`），包含两个顶级路由：
 - `/login` → 登录页（独立页面，无布局）
 - `/` → Layout 布局组件，重定向到 `/index`，子路由包括：
   - `/index` — 首页/仪表盘

@@ -227,10 +227,22 @@ const deleteByIds = async () => {
   <!-- 表格 -->
   <el-table :data="empList" border style="width: 100%" @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="55" align="center"></el-table-column>
-    <el-table-column prop="name" label="姓名" width="120" align="center"></el-table-column>
-    <el-table-column label="性别" width="80" align="center">
+    <el-table-column prop="name" label="姓名" width="100" align="center"></el-table-column>
+    <el-table-column label="性别" width="60" align="center">
       <template #default="scope" >
         {{ scope.row.gender == 1 ? '男' : '女' }}
+      </template>
+    </el-table-column>
+    <el-table-column label="所在班级" width="200" align="center">
+      <template #default="scope">
+        <span v-if="scope.row.clazzNames">{{ scope.row.clazzNames }}</span>
+        <span v-else style="color: #999;">无</span>
+      </template>
+    </el-table-column>
+    <el-table-column label="管理总人数" width="110" align="center">
+      <template #default="scope">
+        <span v-if="scope.row.totalStudents">{{ scope.row.totalStudents }}</span>
+        <span v-else style="color: #999;">无</span>
       </template>
     </el-table-column>
     <el-table-column prop="updateTime" label="最后操作时间" width="210" align="center"></el-table-column>

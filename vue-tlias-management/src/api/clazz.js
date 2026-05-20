@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
 //分页条件查询
-export const queryPageApi = (begin, end, name, page, pageSize) => 
-  request.get(`/clazzs?begin=${begin}&end=${end}&name=${name}&page=${page}&pageSize=${pageSize}`)
+export const queryPageApi = (begin, end, name, masterId, page, pageSize) =>
+  request.get(`/clazzs?begin=${begin}&end=${end}&name=${name}&masterId=${masterId}&page=${page}&pageSize=${pageSize}`)
 
 //新增班级
 export const addApi = (clazz) => request.post('/clazzs', clazz)

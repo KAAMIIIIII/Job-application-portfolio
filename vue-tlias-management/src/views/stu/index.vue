@@ -264,6 +264,12 @@ const delByIds = async () => {
       <el-table-column prop="name" label="姓名" align="center" width="100px" />
       <el-table-column prop="no" label="学号" align="center" width="130px" />
       <el-table-column prop="clazzName" label="班级" align="center" width="160px"/>
+      <el-table-column label="班主任" align="center" width="100px">
+        <template #default="scope">
+          <span v-if="scope.row.masterName">{{ scope.row.masterName }}</span>
+          <span v-else style="color: #999;">无</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="gender" label="性别" align="center" width="70px" >
         <template #default="scope">
           {{ scope.row.gender == 1 ? '男': '女' }}
